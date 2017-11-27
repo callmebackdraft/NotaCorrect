@@ -1,0 +1,147 @@
+﻿@using NotaCorrect.Models
+@model Invoice
+
+@{
+    Layout = "~/Views/Shared/_LayoutNoUi.cshtml";
+}
+
+    @{
+        decimal totalAmount = 0;
+    }
+    <div class="container" style="height:297mm; width:210mm; position:relative">
+        <div class="row">
+            <div class="col-xs-4">
+                <img src="~/Content/Images/Logo.jpg" alt="LOGO" style="margin-top:50px; width:175%; margin-bottom: 55px" />
+                <p><b>Ter Attentie Van:</b></p>
+                <p style="margin: 2px 0px 0px 0px">@Model.Customer.Name</p>
+                @*<p style="margin: 2px 0px 0px 0px">Contactpersoon</p>*@
+                <p style="margin: 2px 0px 0px 0px">@Model.Customer.Streetname @Model.Customer.Housenr</p>
+                <p style="margin: 2px 0px 0px 0px">@Model.Customer.City</p>
+            </div>
+            <div class="col-xs-4 pull-right">
+                <hr />
+                <div class="container">
+                    <div>
+                        <p style="margin: 2px 0px 0px 0px"><b>O.C. Het Jeugdgebouw</b></p>
+                        <p style="margin: 2px 0px 0px 0px">Minderbroederssingel 15f</p>
+                        <p style="margin: 2px 0px 0px 0px">6041KG Roermond</p>
+                        <p style="margin: 2px 0px 0px 0px">41066449</p>
+                        <p style="margin: 2px 0px 0px 0px">0475-795051</p>
+                        <p style="margin: 2px 0px 0px 0px">ontmoetingscentrum15f@gmail.com</p>
+                        <p style="margin: 2px 0px 0px 0px">Rabobank</p>
+                        <p style="margin: 2px 0px 0px 0px">NL31RABO0144103958</p>
+                        <p style="margin: 2px 0px 0px 0px">RABONL2U</p>
+                    </div>
+                </div>
+                <hr />
+            </div>
+            <div class="col-xs-2 pull-right">
+                <hr />
+                <div class="container">
+                    <div class="pull-right">
+                        <div style="text-align:right">
+                            <p style="margin: 2px 0px 0px 0px">Adres:</p>
+                            <p style="margin: 2px 0px 0px 0px">&nbsp;</p>
+                            <p style="margin: 2px 0px 0px 0px">&nbsp;</p>
+                            <p style="margin: 2px 0px 0px 0px">KvK:</p>
+                            <p style="margin: 2px 0px 0px 0px">Tel:</p>
+                            <p style="margin: 2px 0px 0px 0px">Email:</p>
+                            <p style="margin: 2px 0px 0px 0px">Bank:</p>
+                            <p style="margin: 2px 0px 0px 0px">IBAN:</p>
+                            <p style="margin: 2px 0px 0px 0px">BIC:</p>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <h1>Factuur</h1>
+                <p style="margin: 2px 0px 0px 0px">Factuurnummer: @Model.ID</p>
+                @if (Model.Status == "Sent")
+                {
+                    <p style="margin: 2px 0px 0px 0px">FactuurDatum: @Model.LastChange.ToString("dd/MM/yyyy")</p>
+                }
+                else
+                {
+                    <p style="margin: 2px 0px 0px 0px">FactuurDatum: @DateTime.Now.ToString("dd/MM/yyyy")</p>
+                }
+                
+                <p style="margin: 2px 0px 10px 0px">Datum Bijeenkomst: @Model.MeetDate.ToString("dd/MM/yyyy") </p>
+            </div>
+        </div>
+
+        <table>
+            <thead>
+                <tr class="table-bordered">
+                    <th class="col-xs-8">Omschrijving</th>
+                    <th class="col-xs-1 text-center">Aantal</th>
+                    <th class="col-xs-2 text-center">Stuksprijs</th>
+                    <th class="col-xs-4 text-center">Totaal</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (Rentable rent in Model.RentedList)
+            {
+                if (rent.Amount > 0)
+                {
+                    decimal subtotal = rent.Price * rent.Amount;
+                        <tr>
+                            <td>@rent.Name</td>
+                            <td class="text-center">@rent.Amount</td>
+                            <td class="text-center">&euro; @String.Format("{0:0.00}", rent.Price)</td>
+                            <td class="text-center">&euro; @String.Format("{0:0.00}", subtotal)</td>
+                        </tr>
+                        totalAmount += subtotal;
+                    }
+                }
+            </tbody>
+        </table>
+
+
+        <div class="element" style="border: 1px solid lightgrey; position:absolute; bottom: 55px; right:15px; width:inherit">
+            <div class="row">
+                <div class="col-xs-2 pull-right">
+                    <hr />
+                    <div class="container text-center">
+                        <div>
+                            <p style="margin: 2px 0px 0px 0px">&euro; @String.Format("{0:0.00}", totalAmount)</p>
+                            <hr style="margin: 2px 0px 0px 0px; border-color:black" />
+                            <p style="margin: 2px 0px 0px 0px">&euro; @String.Format("{0:0.00}", Model.CashPayment)</p>
+                            <hr style="margin: 2px 0px 0px 0px; border-color:black" />
+                            <hr style="margin: 2px 0px 0px 0px; border-color:black" />
+                            @{
+                                decimal stillopen = totalAmount - Model.CashPayment;
+                            }
+                            <p style="margin: 2px 0px 0px 0px"><b>&euro; @String.Format("{0:0.00}", stillopen)</b></p>
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+                <div class="col-xs-3 pull-right">
+                    <hr />
+                    <div class="container">
+                        <div class="pull-right" style="text-align:right">
+                            <div>
+                                <p style="margin: 2px 0px 0px 0px">Totaal</p>
+                                <hr style="border-color:transparent; margin: 2px 0px 0px 0px" />
+                                <p style="margin: 2px 0px 0px 0px">Contant Betaald</p>
+                                <hr style="border-color:transparent; margin: 2px 0px 0px 0px" />
+                                <hr style="border-color:transparent; margin: 2px 0px 0px 0px" />
+                                <p style="margin: 2px 0px 0px 0px"><b>Te Betalen</b></p>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                </div>
+            </div>
+        </div>
+        <div class="text-center" style="position:absolute; bottom: 5px; right:15px; width:inherit">
+            <p>Wij verzoeken u vriendelijk het verschuldigde bedrag binnen 30 dagen over te maken onder vermelding van het factuurnummer.</p>
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")

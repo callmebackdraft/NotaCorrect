@@ -1,0 +1,81 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutNoUi.cshtml";
+}
+@using AE.Net.Mail
+@model List<MailMessage>
+
+
+
+
+@foreach (MailMessage m in Model)
+{
+
+    string pID = m.Uid + "P";
+    if (m.From.Address != "dennis.aspers@gmail.com")
+    {
+        <p id="@pID"><a id="@m.Uid">Mail ontvangen van: @m.From op: @m.Date</a></p>
+    }
+    else
+    {
+        string toString = null;
+        foreach (var m2 in m.To)
+        {
+            if (toString != null)
+            {
+                toString += ", ";
+            }
+            toString += m2.Address;
+        }
+        <p id="@pID"><a id="@m.Uid">Mail verstuurd naar: @toString op: @m.Date</a></p>
+    }
+
+}
+
+
+@section Mailscripts{
+    @foreach (MailMessage m in Model)
+    {
+        string funcName = m.Uid + "Function";
+        string ChangeFuncName = m.Uid + "Change";
+        string pID = m.Uid + "P";
+        bool received;
+        if (m.From.Address != "dennis.aspers@gmail.com")
+        {
+            received = true;
+        }
+        else
+        {
+            received = false;
+        }
+
+        <script>
+            var divCont = document.getElementById("Conversation");
+            var pItems = divCont.getElementsByTagName('p');
+
+
+            $('#@m.Uid').click(function () {
+                if ($('#Mail').attr('name') == '@m.Uid.ToString()' ) {
+
+                } else {
+                    $('#Mail').hide(1000, function () {
+                        for (var i = 0; i < pItems.length; i++) {
+                            pItems[i].style.fontWeight = "normal"
+                        }
+                        document.getElementById("@pID").style.fontWeight = "900";
+                        $.get('@Html.Raw(Url.Action("Mailview", "Home" ,new RouteValueDictionary(new { MessageID = m.Uid, Received = received})))', $@funcName);
+                    });
+                }
+            });
+
+            var $@funcName = function (receivedHtml) {
+                    $('#Mail').html(receivedHtml).toggle(1000, $@ChangeFuncName);
+            }
+
+            var $@ChangeFuncName = function () {
+                $('#Mail').attr("name", '@m.Uid.ToString()');
+
+            }
+        </script>
+    }
+    
+}

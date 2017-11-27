@@ -1,0 +1,88 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using NotaCorrect.Models
+@model List<Invoice>
+@{
+    List<Invoice> justList = new List<Invoice>();
+    List<Invoice> sentList = new List<Invoice>();
+    foreach (Invoice inv in Model)
+    {
+        if (inv.Status == "Justified")
+        {
+            justList.Add(inv);
+        }
+        else
+        {
+            sentList.Add(inv);
+        }
+    }
+}
+<div class="container">
+    <h2>Nog te verwerken Nota's</h2>
+    <table class="table table-responsive table-striped table-hover table-bordered">
+        <thead>
+            <tr>
+                <th class="col-xs-2">Nota nummer</th>
+                <th class="col-xs-2">Datum Bijeenkomst</th>
+                <th class="col-xs-8">Klant</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (justList.Count() > 0)
+            {
+                foreach (Invoice inv in justList)
+                {
+                    <tr onclick="location.href = '@(Url.Action("ShowInvoice","Home",new { InvoiceID = inv.ID}))'">
+                        <td>@inv.ID</td>
+                        <td>@inv.MeetDate.ToString("dd/MM/yyyy")</td>
+                        <td>@inv.Customer.Name</td>
+                    </tr>
+                }
+
+            }
+            else
+            {
+                <tr>
+                    <td class="text-center" colspan="3">Geen onverwerkte nota's</td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="container">
+    <h2>Verzonden Nota's</h2>
+    <table class="table table-responsive table-striped table-hover table-bordered">
+        <thead>
+            <tr>
+                <th class="col-xs-2">Nota nummer</th>
+                <th class="col-xs-2">Datum Bijeenkomst</th>
+                <th class="col-xs-6">Klant</th>
+                <th class="col-xs-2">Datum Verzonden</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (sentList.Count() > 0)
+            {
+                foreach (Invoice inv in sentList)
+                {
+                    <tr onclick="location.href = '@(Url.Action("ShowInvoice","Home",new { InvoiceID = inv.ID}))'">
+                        <td>@inv.ID</td>
+                        <td>@inv.MeetDate.ToString("dd/MM/yyyy")</td>
+                        <td>@inv.Customer.Name</td>
+                        <td>@inv.LastChange.ToString("dd/MM/yyyy")</td>
+                    </tr>
+                }
+
+            }
+            else
+            {
+                <tr>
+                    <td class="text-center" colspan="4">Geen verzonden onbetaalde nota's</td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

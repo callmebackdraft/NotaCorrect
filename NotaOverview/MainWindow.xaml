@@ -1,0 +1,17 @@
+﻿<Window x:Class="NotaOverview.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NotaOverview"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="792.222">
+    <Grid>
+        <ListBox x:Name="LstbToProcess" HorizontalAlignment="Left" Height="269" Margin="10,40,0,0" VerticalAlignment="Top" Width="250"/>
+        <ListBox x:Name="LstbSent" HorizontalAlignment="Left" Height="269" Margin="267,40,0,0" VerticalAlignment="Top" Width="250"/>
+        <ListBox x:Name="LstbProcessed" HorizontalAlignment="Left" Height="269" Margin="524,40,0,0" VerticalAlignment="Top" Width="250"/>
+        <Label Content="Nog te verwerken" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0"/>
+        <Label Content="Verzonden" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="267,9,0,0"/>
+        <Label Content="Volledig Verwerkt" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="524,9,0,0"/>
+    </Grid>
+</Window>

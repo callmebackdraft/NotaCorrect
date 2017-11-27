@@ -1,0 +1,123 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using NotaCorrect.Models
+@model Invoice
+
+<h1>Nota voor: @Model.Customer.Name voor de bijeenkomst op: @Model.MeetDate.ToString("dd/MM/yyy")</h1>
+@Html.ActionLink("Download Rekening", "GetPDFInvoice", new { InvoiceID = Model.ID }, new { @class = "btn btn-default" })
+@if (Model.Status == "Justified")
+{   
+    @Html.ActionLink("Verstuur Rekening", "SendInvoiceByMailAsync", new { InvoiceID = Model.ID }, new { @class = "btn btn-default pull-right" });
+}
+else
+{
+    <button class="btn btn-default pull-right" id="hideConv">Toon Conversatie</button>
+    <br />
+    <p class="pull-right">Nota verstuurd op: @Model.LastChange.ToString("dd/MM/yyyy")</p>
+}
+<br />
+<br />
+<button class="btn btn-default" id="hideInv">Verberg Nota</button>
+@if (Model.Status == "Sent")
+{
+    <button class="btn btn-default pull-right" id="InvPayed">Nota Betaald</button>
+}
+
+<br />
+@if (Model.Status == "Sent")
+{
+    <div id="convCont">
+        <br />
+        <p>Iedere 20 seconden word gecontroleerd voor nieuwe E-mails</p>
+        <div style="border: 1px solid grey" id="Conversation">
+            @{ Html.RenderAction("MailConversation", "Home", Model.ID);}
+        </div>
+        <br />
+        <div id="Mail" name="Empty">
+
+        </div>
+    </div>
+                }
+
+<br />
+<div id="invCont" style="height:297mm; width: 250mm; margin: auto; border: 1px solid grey">
+    @Html.Partial("PartialInvoice")
+</div>
+@section Scripts
+{
+    @if (Model.Status == "Sent")
+    {
+        <script>
+            setInterval(GetConversation, 20000);
+
+            function GetConversation()
+            {
+            $.get('@Html.Raw(Url.Action("MailConversation", "Home", new { InvoiceID = Model.ID }))', SetConversation)
+                }
+
+            var SetConversation = function(receivedhtml) {
+
+                var divCont = document.getElementById("Conversation");
+                var pItems = divCont.getElementsByTagName('p');
+                var KeepFontWeight;
+                for (var i = 0; i < pItems.length; i++)
+                {
+                    if (pItems[i].style.fontWeight == "900")
+                    {
+                        KeepFontWeight = pItems[i].id
+                    }
+                }
+            $("#Conversation").html(receivedhtml);
+                divCont = document.getElementById("Conversation");
+                pItems = divCont.getElementsByTagName('p');
+                for (var i = 0; i < pItems.length; i++)
+                {
+                    if (pItems[i].id == KeepFontWeight)
+                    {
+                        pItems[i].style.fontWeight = "900"
+                    }
+                }
+            }
+        </script>
+    }
+
+    <script>
+        $(document).ready(function () {
+            $("#convCont").hide();
+            $("#Mail").hide();
+            if (document.getElementById('Mail')) {
+                document.getElementById('Mail').setAttribute("name", "Empty");
+            }
+        });
+
+        $("#hideInv").click(function () {
+            $("#invCont").toggle(1000, function () {
+                if ($("#invCont").is(":visible")) {
+                    $("#hideInv").text("Verberg Nota");
+                } else {
+                    $("#hideInv").text("Toon Nota");
+                }
+            });
+        });
+
+        $("#hideConv").click(function () {
+            $("#convCont").toggle(1000, function () {
+                if ($("#convCont").is(":visible")) {
+                    $("#hideConv").text("Verberg Conversatie");
+                } else {
+                    $("#hideConv").text("Toon Conversatie");
+                }
+            });
+        });
+
+        $("#InvPayed").click(function () {
+            $.post('@Html.Raw(Url.Action("InvoicePayment","Home", new { InvoiceID = Model.ID}))', function (data,status) {
+                alert("Data: " + data + "\nStatus: " + status);
+            });
+
+        });
+
+
+    </script>
+}

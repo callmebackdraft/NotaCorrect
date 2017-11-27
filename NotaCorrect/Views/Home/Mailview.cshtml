@@ -1,0 +1,10 @@
+﻿@{
+    Layout = null;
+}
+@using AE.Net.Mail
+@model MailMessage
+
+<p>@Model.Subject</p>
+
+<p>@Html.Raw(Model.Body)</p>
+

@@ -1,0 +1,84 @@
+﻿@{
+    Html.EnableClientValidation(); 
+}
+
+@using NotaCorrect.Models
+@model Justification
+@if (ViewBag.ProcessMessage != null)
+{
+    <div class="text-center" style="margin-top:10px; width:99%; height:50px; background-color:#c8dff7">
+        <span class="text-warning" style="margin-top:auto; margin-bottom:auto">@ViewBag.ProcessMessage</span>
+    </div>
+}
+<div class="container">
+    <div>
+        <div class="text-center">
+            <h1>AFDRACHTFORMULIER</h1>
+            
+            <hr />
+            <p>Naam Vrijwilliger: Aart Dumee</p>
+        </div>
+        <div class="text-center">
+            @using (Html.BeginForm("ProcessJustification", "Home", FormMethod.Post, new { name = "JustForm" }))
+            {
+                @Html.ValidationSummary(true)
+                @Html.HiddenFor(x => x.EmpID, Model.EmpID)
+                <p>Datum Bijeenkomst:@Html.EditorFor(x => x.MeetDate, new { htmlAttributes = new { type = "date", Value = DateTime.Now.ToString("yyyy/MM/dd") } }) @Html.ValidationMessageFor(x => x.MeetDate, null, new { @class = "text-danger"})</p>
+                <p>
+                    Naam Huurder:
+                    @Html.DropDownListFor(x => x.SelectedCustID, Model.AllCustomers)
+                    @Html.ValidationMessageFor(x => x.SelectedCustID, null, new { @class = "text-danger" })
+                </p>
+                <hr />
+                <h1>VERANTWOORDING</h1>
+                <p>
+                    Huur Kleine Zaal
+                    <select name="RentLittleRoom">
+                        <Option value="0">Niet Gebruikt</Option>
+                        <Option value="1">1 Dagdeel</Option>
+                        <Option value="2">2 Dagdelen</Option>
+                        <Option value="3">3 Dagdelen</Option>
+                        <Option value="4">4 Dagdelen</Option>
+                        <Option value="5">5 Dagdelen</Option>
+                        <Option value="6">6 Dagdelen</Option>
+                    </select>
+                </p>
+                <p>
+                    Huur Grote Zaal
+                    <select name="RentLargeRoom">
+                        <Option value="0">Niet Gebruikt</Option>
+                        <Option value="1">1 Dagdeel</Option>
+                        <Option value="2">2 Dagdelen</Option>
+                        <Option value="3">3 Dagdelen</Option>
+                        <Option value="4">4 Dagdelen</Option>
+                        <Option value="5">5 Dagdelen</Option>
+                        <Option value="6">6 Dagdelen</Option>
+                    </select>
+                </p>
+                <p>
+                    Gebruik Keuken
+                    <select name="KitchenUsedFor">
+                        <Option value="0">Niet Gebruikt</Option>
+                        <Option value="1">Tot 25 Personen</Option>
+                        <Option value="2">25 Personen of meer</Option>
+                    </select>
+                </p>
+                <p>Aantal Koffie/Thee/Fris:<input type="number" min="0" name="CoffeeAmount" style="display:inline"></p>
+                <p>Aantal Bier:<input type="number" min="0" name="BeerAmount" style="display:inline"></p>
+                <p>Aantal Wijn:<input type="number" min="0" name="WineAmount" style="display:inline"></p>
+                <p>Aantal Koffie/Thee kannen:<input type="number" min="0" name="JugAmount" style="display:inline"></p>
+                <p>Aantal Overige/Speciale kosten:<input type="number" min="0" step=".01" name="OtherAmount" style="display:inline"></p>
+                <p>Beamer gehuurd: @Html.EditorFor(x => x.BeamerRented)</p>
+                <p>Microfoon gehuurd: @Html.EditorFor(x => x.MicRented)</p>
+                <p>Contante Betaling: <input type="number" min="0" step=".01" name="CashPayment" style="display:inline"></p>
+                <hr />
+                <input type="submit" value="Registreer Afdracht Formulier" />
+            }
+        </div>
+    </div>
+</div>
+@section Scripts 
+    {
+    @Scripts.Render("~/bundles/jqueryval")
+    }
+
