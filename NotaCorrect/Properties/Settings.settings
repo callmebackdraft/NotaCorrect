@@ -1,20 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="NotaCorrect.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
   <Profiles />
-  <Settings>
-    <Setting Name="DBConnection" Type="(Connection string)" Scope="Application">
-      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Server=tcp:notacorrect.database.windows.net,1433;Initial Catalog=NotaCorrect;Persist Security Info=False;User ID=Callmebackdraft;Password=Brainiac1988;MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30&lt;/ConnectionString&gt;
-&lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Server=tcp:notacorrect.database.windows.net,1433;Initial Catalog=NotaCorrect;Persist Security Info=False;User ID=Callmebackdraft;Password=Brainiac1988;MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30</Value>
-    </Setting>
-    <Setting Name="SecondaryDB" Type="(Connection string)" Scope="Application">
-      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
-&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
-  &lt;ConnectionString&gt;Server=SQL6001.site4now.net;Initial Catalog=DB_A2C9F3_callmebackdraft;User Id=DB_A2C9F3_callmebackdraft_admin;Password=Brainiac1988!;&lt;/ConnectionString&gt;
-&lt;/SerializableConnectionString&gt;</DesignTimeValue>
-      <Value Profile="(Default)">Server=SQL6001.site4now.net;Initial Catalog=DB_A2C9F3_callmebackdraft;User Id=DB_A2C9F3_callmebackdraft_admin;Password=Brainiac1988!;</Value>
-    </Setting>
-  </Settings>
+  <Settings />
 </SettingsFile>

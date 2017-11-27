@@ -22,29 +22,5 @@ namespace NotaCorrect.Properties {
                 return defaultInstance;
             }
         }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Server=tcp:notacorrect.database.windows.net,1433;Initial Catalog=NotaCorrect;Pers" +
-            "ist Security Info=False;User ID=Callmebackdraft;Password=Brainiac1988;MultipleAc" +
-            "tiveResultSets=True;Encrypt=True;TrustServerCertificate=False;Connection Timeout" +
-            "=30")]
-        public string DBConnection {
-            get {
-                return ((string)(this["DBConnection"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Server=SQL6001.site4now.net;Initial Catalog=DB_A2C9F3_callmebackdraft;User Id=DB_" +
-            "A2C9F3_callmebackdraft_admin;Password=Brainiac1988!;")]
-        public string SecondaryDB {
-            get {
-                return ((string)(this["SecondaryDB"]));
-            }
-        }
     }
 }
