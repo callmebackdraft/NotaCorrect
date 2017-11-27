@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using NotaCorrect.Interfaces;
 using NotaCorrect.Models;
-using NotaCorrect.Repository;
+using NotaCorrect.Repositories
 
 
 namespace NotaOverview

@@ -321,10 +321,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ClassLibrary2\NotaCorrect.Repository.csproj">
-      <Project>{60209da6-da32-4282-bde0-66eb213c1157}</Project>
-      <Name>NotaCorrect.Repository</Name>
-    </ProjectReference>
     <ProjectReference Include="..\NotaCorrect.DataHandling\NotaCorrect.DataHandling.csproj">
       <Project>{a9ce4b94-a89c-495c-8400-01a1b9ff2e92}</Project>
       <Name>NotaCorrect.DataHandling</Name>
@@ -336,6 +332,10 @@
     <ProjectReference Include="..\NotaCorrect.Models\NotaCorrect.Models.csproj">
       <Project>{b048140d-89d4-4ee0-83b8-f68aef9dd13f}</Project>
       <Name>NotaCorrect.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NotaCorrect.Repositories\NotaCorrect.Repositories.csproj">
+      <Project>{36c26e48-48ca-4e61-8298-d8b4bb487599}</Project>
+      <Name>NotaCorrect.Repositories</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

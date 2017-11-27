@@ -11,7 +11,8 @@ using System.Net;
 using System.IO;
 using AE.Net.Mail;
 using NotaCorrect.Interfaces;
-using NotaCorrect.Repository;
+using NotaCorrect.Repositories;
+
 using NotaCorrect.DataHandling;
 
 namespace NotaCorrect.Controllers
